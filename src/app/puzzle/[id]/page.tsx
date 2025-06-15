@@ -59,13 +59,14 @@ const puzzles = [
 ];
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default function PuzzlePage({ params }: PageProps) {
-  const puzzleNumber = parseInt(params.id);
+export default async function PuzzlePage({ params }: PageProps) {
+  const { id } = await params;
+  const puzzleNumber = parseInt(id);
   const puzzle = puzzles[puzzleNumber - 1];
   const nextPuzzleUrl = puzzleNumber < puzzles.length ? `/puzzle/${puzzleNumber + 1}` : null;
 
